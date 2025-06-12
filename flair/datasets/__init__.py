@@ -1,257 +1,610 @@
 # Expose base classses
-from .base import DataLoader
-from .base import SentenceDataset
-from .base import StringDataset
-from .base import MongoDataset
-
-# Expose all sequence labeling datasets
-from .sequence_labeling import ColumnCorpus
-from .sequence_labeling import ColumnDataset
-from .sequence_labeling import AMHARIC_NER
-from .sequence_labeling import ANER_CORP
-from .sequence_labeling import AQMAR
-from .sequence_labeling import BIOFID
-from .sequence_labeling import BIOSCOPE
-from .sequence_labeling import BUSINESS_HUN
-from .sequence_labeling import CONLL_03
-from .sequence_labeling import CONLL_03_GERMAN
-from .sequence_labeling import CONLL_03_DUTCH
-from .sequence_labeling import ICELANDIC_NER
-from .sequence_labeling import CONLL_03_SPANISH
-from .sequence_labeling import CONLL_2000
-from .sequence_labeling import DANE
-from .sequence_labeling import EUROPARL_NER_GERMAN
-from .sequence_labeling import GERMEVAL_14
-from .sequence_labeling import HAUSA_NER
-from .sequence_labeling import INSPEC
-from .sequence_labeling import JAPANESE_NER
-from .sequence_labeling import KINYARWANDA_NER
-from .sequence_labeling import LER_GERMAN
-from .sequence_labeling import LUGANDA_NER
-from .sequence_labeling import LUO_NER
-from .sequence_labeling import MIT_MOVIE_NER_SIMPLE
-from .sequence_labeling import MIT_MOVIE_NER_COMPLEX
-from .sequence_labeling import MIT_RESTAURANT_NER
-from .sequence_labeling import NAIJA_PIDGIN_NER
-from .sequence_labeling import NER_BASQUE
-from .sequence_labeling import NER_FINNISH
-from .sequence_labeling import NER_SWEDISH
-from .sequence_labeling import NER_YORUBA
-from .sequence_labeling import STACKOVERFLOW_NER
-from .sequence_labeling import SEMEVAL2010
-from .sequence_labeling import SEMEVAL2017
-from .sequence_labeling import TURKU_NER
-from .sequence_labeling import TWITTER_NER
-from .sequence_labeling import UP_CHINESE
-from .sequence_labeling import UP_ENGLISH
-from .sequence_labeling import UP_FINNISH
-from .sequence_labeling import UP_FRENCH
-from .sequence_labeling import UP_GERMAN
-from .sequence_labeling import UP_ITALIAN
-from .sequence_labeling import UP_SPANISH
-from .sequence_labeling import UP_SPANISH_ANCORA
-from .sequence_labeling import WEIBO_NER
-from .sequence_labeling import WIKIANN
-from .sequence_labeling import WIKIGOLD_NER
-from .sequence_labeling import WIKINER_ENGLISH
-from .sequence_labeling import WIKINER_GERMAN
-from .sequence_labeling import WIKINER_DUTCH
-from .sequence_labeling import WIKINER_FRENCH
-from .sequence_labeling import WIKINER_ITALIAN
-from .sequence_labeling import WIKINER_SPANISH
-from .sequence_labeling import WIKINER_PORTUGUESE
-from .sequence_labeling import WIKINER_POLISH
-from .sequence_labeling import WIKINER_RUSSIAN
-from .sequence_labeling import WNUT_17
-from .sequence_labeling import WSD_UFSAC
-from .sequence_labeling import WNUT_2020_NER
-from .sequence_labeling import XTREME
-from .sequence_labeling import REDDIT_EL_GOLD
-
-# Expose all document classification datasets
-from .document_classification import ClassificationCorpus
-from .document_classification import ClassificationDataset
-from .document_classification import CSVClassificationCorpus
-from .document_classification import CSVClassificationDataset
-from .document_classification import AMAZON_REVIEWS
-from .document_classification import COMMUNICATIVE_FUNCTIONS
-from .document_classification import GERMEVAL_2018_OFFENSIVE_LANGUAGE
-from .document_classification import GO_EMOTIONS
-from .document_classification import IMDB
-from .document_classification import NEWSGROUPS
-from .document_classification import SENTIMENT_140
-from .document_classification import SENTEVAL_CR
-from .document_classification import SENTEVAL_MR
-from .document_classification import SENTEVAL_MPQA
-from .document_classification import SENTEVAL_SUBJ
-from .document_classification import SENTEVAL_SST_BINARY
-from .document_classification import SENTEVAL_SST_GRANULAR
-from .document_classification import TREC_50
-from .document_classification import TREC_6
-from .document_classification import WASSA_ANGER
-from .document_classification import WASSA_FEAR
-from .document_classification import WASSA_JOY
-from .document_classification import WASSA_SADNESS
-from .document_classification import YAHOO_ANSWERS
-
-# Expose all treebanks
-from .treebanks import UniversalDependenciesCorpus
-from .treebanks import UniversalDependenciesDataset
-from .treebanks import UD_ARMENIAN
-from .treebanks import UD_ENGLISH
-from .treebanks import UD_ANCIENT_GREEK
-from .treebanks import UD_KAZAKH
-from .treebanks import UD_ESTONIAN
-from .treebanks import UD_GERMAN
-from .treebanks import UD_GERMAN_HDT
-from .treebanks import UD_DUTCH
-from .treebanks import UD_FAROESE
-from .treebanks import UD_FRENCH
-from .treebanks import UD_ITALIAN
-from .treebanks import UD_SPANISH
-from .treebanks import UD_PORTUGUESE
-from .treebanks import UD_ROMANIAN
-from .treebanks import UD_CATALAN
-from .treebanks import UD_POLISH
-from .treebanks import UD_CZECH
-from .treebanks import UD_SLOVAK
-from .treebanks import UD_SWEDISH
-from .treebanks import UD_DANISH
-from .treebanks import UD_NORWEGIAN
-from .treebanks import UD_FINNISH
-from .treebanks import UD_SLOVENIAN
-from .treebanks import UD_CROATIAN
-from .treebanks import UD_SERBIAN
-from .treebanks import UD_BULGARIAN
-from .treebanks import UD_ARABIC
-from .treebanks import UD_HEBREW
-from .treebanks import UD_TURKISH
-from .treebanks import UD_PERSIAN
-from .treebanks import UD_RUSSIAN
-from .treebanks import UD_HINDI
-from .treebanks import UD_INDONESIAN
-from .treebanks import UD_JAPANESE
-from .treebanks import UD_CHINESE
-from .treebanks import UD_KOREAN
-from .treebanks import UD_BASQUE
-from .treebanks import UD_GREEK
-from .treebanks import UD_LIVVI
-from .treebanks import UD_NORTH_SAMI
-from .treebanks import UD_MARATHI
-from .treebanks import UD_MALTESE
-from .treebanks import UD_AFRIKAANS
-from .treebanks import UD_OLD_FRENCH
-from .treebanks import UD_GOTHIC
-from .treebanks import UD_WOLOF
-from .treebanks import UD_BELARUSIAN
-from .treebanks import UD_OLD_CHURCH_SLAVONIC
-from .treebanks import UD_COPTIC
-from .treebanks import UD_IRISH
-from .treebanks import UD_LATVIAN
-from .treebanks import UD_LITHUANIAN
-from .treebanks import UD_GALICIAN
-
-# Expose all text-text datasets
-from .text_text import ParallelTextCorpus
-from .text_text import ParallelTextDataset
-from .text_text import OpusParallelCorpus
-from .text_text import DataPairDataset
-from .text_text import DataPairCorpus
-from .text_text import GLUE_RTE
-from .text_text import SUPERGLUE_RTE
-
-# Expose all text-image datasets
-from .text_image import FeideggerCorpus
-from .text_image import FeideggerDataset
-
-# Expose all biomedical data sets
-from .biomedical import ANAT_EM
-from .biomedical import AZDZ
-from .biomedical import BIONLP2013_PC
-from .biomedical import BIONLP2013_CG
-from .biomedical import BIO_INFER
-from .biomedical import BIOSEMANTICS
-from .biomedical import BC2GM
-from .biomedical import CELL_FINDER
-from .biomedical import CEMP
-from .biomedical import CDR
-from .biomedical import CHEMDNER
-from .biomedical import CRAFT
-from .biomedical import CRAFT_V4
-from .biomedical import CLL
-from .biomedical import DECA
-from .biomedical import FSU
-from .biomedical import GELLUS
-from .biomedical import GPRO
-from .biomedical import IEPA
-from .biomedical import JNLPBA
-from .biomedical import LOCTEXT
-from .biomedical import LINNEAUS
-from .biomedical import NCBI_DISEASE
-from .biomedical import MIRNA
-from .biomedical import OSIRIS
-from .biomedical import PDR
-from .biomedical import S800
-from .biomedical import SCAI_CHEMICALS
-from .biomedical import SCAI_DISEASE
-from .biomedical import VARIOME
-
-# Expose all biomedical data sets using the HUNER splits
-from .biomedical import HUNER_CHEMICAL
-from .biomedical import HUNER_CHEMICAL_CHEBI
-from .biomedical import HUNER_CHEMICAL_CHEMDNER
-from .biomedical import HUNER_CHEMICAL_CDR
-from .biomedical import HUNER_CHEMICAL_CEMP
-from .biomedical import HUNER_CHEMICAL_SCAI
-from .biomedical import HUNER_CHEMICAL_CRAFT_V4
-# -
-from .biomedical import HUNER_CELL_LINE
-from .biomedical import HUNER_CELL_LINE_CLL
-from .biomedical import HUNER_CELL_LINE_CELL_FINDER
-from .biomedical import HUNER_CELL_LINE_GELLUS
-from .biomedical import HUNER_CELL_LINE_JNLPBA
-# -
-from .biomedical import HUNER_DISEASE
-from .biomedical import HUNER_DISEASE_CDR
-from .biomedical import HUNER_DISEASE_MIRNA
-from .biomedical import HUNER_DISEASE_NCBI
-from .biomedical import HUNER_DISEASE_SCAI
-from .biomedical import HUNER_DISEASE_VARIOME
-from .biomedical import HUNER_DISEASE_PDR
-# -
-from .biomedical import HUNER_GENE
-from .biomedical import HUNER_GENE_BIO_INFER
-from .biomedical import HUNER_GENE_BC2GM
-from .biomedical import HUNER_GENE_CHEBI
-from .biomedical import HUNER_GENE_CRAFT_V4
-from .biomedical import HUNER_GENE_CELL_FINDER
-from .biomedical import HUNER_GENE_DECA
-from .biomedical import HUNER_GENE_FSU
-from .biomedical import HUNER_GENE_GPRO
-from .biomedical import HUNER_GENE_IEPA
-from .biomedical import HUNER_GENE_JNLPBA
-from .biomedical import HUNER_GENE_LOCTEXT
-from .biomedical import HUNER_GENE_MIRNA
-from .biomedical import HUNER_GENE_OSIRIS
-from .biomedical import HUNER_GENE_VARIOME
-# -
-from .biomedical import HUNER_SPECIES
-from .biomedical import HUNER_SPECIES_CELL_FINDER
-from .biomedical import HUNER_SPECIES_CHEBI
-from .biomedical import HUNER_SPECIES_CRAFT_V4
-from .biomedical import HUNER_SPECIES_LOCTEXT
-from .biomedical import HUNER_SPECIES_LINNEAUS
-from .biomedical import HUNER_SPECIES_MIRNA
-from .biomedical import HUNER_SPECIES_S800
-from .biomedical import HUNER_SPECIES_VARIOME
+from .base import (
+    DataLoader,
+    FlairDatapointDataset,
+    MongoDataset,
+    SentenceDataset,
+    StringDataset,
+)
 
 # Expose all biomedical data sets used for the evaluation of BioBERT
-from .biomedical import BIOBERT_CHEMICAL_BC4CHEMD
-from .biomedical import BIOBERT_CHEMICAL_BC5CDR
-from .biomedical import BIOBERT_DISEASE_NCBI
-from .biomedical import BIOBERT_DISEASE_BC5CDR
-from .biomedical import BIOBERT_SPECIES_LINNAEUS
-from .biomedical import BIOBERT_SPECIES_S800
-from .biomedical import BIOBERT_GENE_BC2GM
-from .biomedical import BIOBERT_GENE_JNLPBA
-from.treebanks import UD_LATIN
+# -
+# -
+# -
+# -
+# Expose all biomedical data sets using the HUNER splits
+# Expose all biomedical data sets
+from .biomedical import (
+    ANAT_EM,
+    AZDZ,
+    BC2GM,
+    BIO_INFER,
+    BIOBERT_CHEMICAL_BC4CHEMD,
+    BIOBERT_CHEMICAL_BC5CDR,
+    BIOBERT_DISEASE_BC5CDR,
+    BIOBERT_DISEASE_NCBI,
+    BIOBERT_GENE_BC2GM,
+    BIOBERT_GENE_JNLPBA,
+    BIOBERT_SPECIES_LINNAEUS,
+    BIOBERT_SPECIES_S800,
+    BIONLP2013_CG,
+    BIONLP2013_PC,
+    BIOSEMANTICS,
+    CDR,
+    CELL_FINDER,
+    CEMP,
+    CHEMDNER,
+    CLL,
+    CRAFT,
+    CRAFT_V4,
+    DECA,
+    FSU,
+    GELLUS,
+    GPRO,
+    HUNER_CELL_LINE,
+    HUNER_CELL_LINE_CELL_FINDER,
+    HUNER_CELL_LINE_CLL,
+    HUNER_CELL_LINE_GELLUS,
+    HUNER_CELL_LINE_JNLPBA,
+    HUNER_CHEMICAL,
+    HUNER_CHEMICAL_CDR,
+    HUNER_CHEMICAL_CEMP,
+    HUNER_CHEMICAL_CHEBI,
+    HUNER_CHEMICAL_CHEMDNER,
+    HUNER_CHEMICAL_CRAFT_V4,
+    HUNER_CHEMICAL_SCAI,
+    HUNER_DISEASE,
+    HUNER_DISEASE_CDR,
+    HUNER_DISEASE_MIRNA,
+    HUNER_DISEASE_NCBI,
+    HUNER_DISEASE_PDR,
+    HUNER_DISEASE_SCAI,
+    HUNER_DISEASE_VARIOME,
+    HUNER_GENE,
+    HUNER_GENE_BC2GM,
+    HUNER_GENE_BIO_INFER,
+    HUNER_GENE_CELL_FINDER,
+    HUNER_GENE_CHEBI,
+    HUNER_GENE_CRAFT_V4,
+    HUNER_GENE_DECA,
+    HUNER_GENE_FSU,
+    HUNER_GENE_GPRO,
+    HUNER_GENE_IEPA,
+    HUNER_GENE_JNLPBA,
+    HUNER_GENE_LOCTEXT,
+    HUNER_GENE_MIRNA,
+    HUNER_GENE_OSIRIS,
+    HUNER_GENE_VARIOME,
+    HUNER_SPECIES,
+    HUNER_SPECIES_CELL_FINDER,
+    HUNER_SPECIES_CHEBI,
+    HUNER_SPECIES_CRAFT_V4,
+    HUNER_SPECIES_LINNEAUS,
+    HUNER_SPECIES_LOCTEXT,
+    HUNER_SPECIES_MIRNA,
+    HUNER_SPECIES_S800,
+    HUNER_SPECIES_VARIOME,
+    IEPA,
+    JNLPBA,
+    LINNEAUS,
+    LOCTEXT,
+    MIRNA,
+    NCBI_DISEASE,
+    OSIRIS,
+    PDR,
+    S800,
+    SCAI_CHEMICALS,
+    SCAI_DISEASE,
+    VARIOME,
+)
+
+# Expose all document classification datasets
+from .document_classification import (
+    AGNEWS,
+    AMAZON_REVIEWS,
+    COMMUNICATIVE_FUNCTIONS,
+    GERMEVAL_2018_OFFENSIVE_LANGUAGE,
+    GLUE_COLA,
+    GLUE_SST2,
+    GO_EMOTIONS,
+    IMDB,
+    NEWSGROUPS,
+    SENTEVAL_CR,
+    SENTEVAL_MPQA,
+    SENTEVAL_MR,
+    SENTEVAL_SST_BINARY,
+    SENTEVAL_SST_GRANULAR,
+    SENTEVAL_SUBJ,
+    SENTIMENT_140,
+    STACKOVERFLOW,
+    TREC_6,
+    TREC_50,
+    WASSA_ANGER,
+    WASSA_FEAR,
+    WASSA_JOY,
+    WASSA_SADNESS,
+    YAHOO_ANSWERS,
+    ClassificationCorpus,
+    ClassificationDataset,
+    CSVClassificationCorpus,
+    CSVClassificationDataset,
+)
+
+# word sense disambiguation
+# Expose all entity linking datasets
+from .entity_linking import (
+    CTD_CHEMICALS_DICTIONARY,
+    CTD_DISEASES_DICTIONARY,
+    NCBI_GENE_HUMAN_DICTIONARY,
+    NCBI_TAXONOMY_DICTIONARY,
+    NEL_ENGLISH_AIDA,
+    NEL_ENGLISH_AQUAINT,
+    NEL_ENGLISH_IITB,
+    NEL_ENGLISH_REDDIT,
+    NEL_ENGLISH_TWEEKI,
+    NEL_GERMAN_HIPE,
+    WSD_MASC,
+    WSD_OMSTI,
+    WSD_RAGANATO_ALL,
+    WSD_SEMCOR,
+    WSD_TRAINOMATIC,
+    WSD_UFSAC,
+    WSD_WORDNET_GLOSS_TAGGED,
+    ZELDA,
+    EntityLinkingDictionary,
+    HunerEntityLinkingDictionary,
+)
+
+# Expose all relation extraction datasets
+from .ocr import SROIE, OcrJsonDataset
+from .relation_extraction import (
+    RE_ENGLISH_CONLL04,
+    RE_ENGLISH_DRUGPROT,
+    RE_ENGLISH_SEMEVAL2010,
+    RE_ENGLISH_TACRED,
+)
+
+# universal proposition banks
+# keyphrase detection datasets
+# other NER datasets
+# standard NER datasets
+# Expose all sequence labeling datasets
+from .sequence_labeling import (
+    BIOSCOPE,
+    CLEANCONLL,
+    CONLL_03,
+    CONLL_03_DUTCH,
+    CONLL_03_GERMAN,
+    CONLL_03_SPANISH,
+    CONLL_2000,
+    FEWNERD,
+    KEYPHRASE_INSPEC,
+    KEYPHRASE_SEMEVAL2010,
+    KEYPHRASE_SEMEVAL2017,
+    MASAKHA_POS,
+    NER_ARABIC_ANER,
+    NER_ARABIC_AQMAR,
+    NER_BASQUE,
+    NER_BAVARIAN_WIKI,
+    NER_CHINESE_WEIBO,
+    NER_DANISH_DANE,
+    NER_DANISH_DANSK,
+    NER_ENGLISH_MOVIE_COMPLEX,
+    NER_ENGLISH_MOVIE_SIMPLE,
+    NER_ENGLISH_PERSON,
+    NER_ENGLISH_RESTAURANT,
+    NER_ENGLISH_SEC_FILLINGS,
+    NER_ENGLISH_STACKOVERFLOW,
+    NER_ENGLISH_TWITTER,
+    NER_ENGLISH_WEBPAGES,
+    NER_ENGLISH_WIKIGOLD,
+    NER_ENGLISH_WNUT_2020,
+    NER_ESTONIAN_NOISY,
+    NER_FINNISH,
+    NER_GERMAN_BIOFID,
+    NER_GERMAN_EUROPARL,
+    NER_GERMAN_GERMEVAL,
+    NER_GERMAN_LEGAL,
+    NER_GERMAN_MOBIE,
+    NER_GERMAN_POLITICS,
+    NER_HIPE_2022,
+    NER_HUNGARIAN,
+    NER_ICDAR_EUROPEANA,
+    NER_ICELANDIC,
+    NER_JAPANESE,
+    NER_MASAKHANE,
+    NER_MULTI_CONER,
+    NER_MULTI_CONER_V2,
+    NER_MULTI_WIKIANN,
+    NER_MULTI_WIKINER,
+    NER_MULTI_XTREME,
+    NER_NERMUD,
+    NER_NOISEBENCH,
+    NER_SWEDISH,
+    NER_TURKU,
+    NER_UKRAINIAN,
+    ONTONOTES,
+    UP_CHINESE,
+    UP_ENGLISH,
+    UP_FINNISH,
+    UP_FRENCH,
+    UP_GERMAN,
+    UP_ITALIAN,
+    UP_SPANISH,
+    UP_SPANISH_ANCORA,
+    WNUT_17,
+    ColumnCorpus,
+    ColumnDataset,
+)
+
+# Expose all text-image datasets
+from .text_image import FeideggerCorpus, FeideggerDataset
+
+# Expose all text-text datasets
+from .text_text import (
+    GLUE_MNLI,
+    GLUE_MRPC,
+    GLUE_QNLI,
+    GLUE_QQP,
+    GLUE_RTE,
+    GLUE_STSB,
+    GLUE_WNLI,
+    SUPERGLUE_RTE,
+    DataPairCorpus,
+    DataPairDataset,
+    DataTripleCorpus,
+    DataTripleDataset,
+    OpusParallelCorpus,
+    ParallelTextCorpus,
+    ParallelTextDataset,
+)
+
+# Expose all treebanks
+from .treebanks import (
+    UD_AFRIKAANS,
+    UD_ANCIENT_GREEK,
+    UD_ARABIC,
+    UD_ARMENIAN,
+    UD_BASQUE,
+    UD_BAVARIAN_MAIBAAM,
+    UD_BELARUSIAN,
+    UD_BULGARIAN,
+    UD_BURYAT,
+    UD_CATALAN,
+    UD_CHINESE,
+    UD_CHINESE_KYOTO,
+    UD_COPTIC,
+    UD_CROATIAN,
+    UD_CZECH,
+    UD_DANISH,
+    UD_DUTCH,
+    UD_ENGLISH,
+    UD_ESTONIAN,
+    UD_FAROESE,
+    UD_FINNISH,
+    UD_FRENCH,
+    UD_GALICIAN,
+    UD_GERMAN,
+    UD_GERMAN_HDT,
+    UD_GOTHIC,
+    UD_GREEK,
+    UD_HEBREW,
+    UD_HINDI,
+    UD_INDONESIAN,
+    UD_IRISH,
+    UD_ITALIAN,
+    UD_JAPANESE,
+    UD_KAZAKH,
+    UD_KOREAN,
+    UD_LATIN,
+    UD_LATVIAN,
+    UD_LITHUANIAN,
+    UD_LIVVI,
+    UD_MALTESE,
+    UD_MARATHI,
+    UD_NAIJA,
+    UD_NORTH_SAMI,
+    UD_NORWEGIAN,
+    UD_OLD_CHURCH_SLAVONIC,
+    UD_OLD_FRENCH,
+    UD_PERSIAN,
+    UD_POLISH,
+    UD_PORTUGUESE,
+    UD_ROMANIAN,
+    UD_RUSSIAN,
+    UD_SERBIAN,
+    UD_SLOVAK,
+    UD_SLOVENIAN,
+    UD_SPANISH,
+    UD_SWEDISH,
+    UD_TURKISH,
+    UD_UKRAINIAN,
+    UD_WOLOF,
+    UniversalDependenciesCorpus,
+    UniversalDependenciesDataset,
+)
+
+__all__ = [
+    "AGNEWS",
+    "AMAZON_REVIEWS",
+    "ANAT_EM",
+    "AZDZ",
+    "BC2GM",
+    "BIOBERT_CHEMICAL_BC4CHEMD",
+    "BIOBERT_CHEMICAL_BC5CDR",
+    "BIOBERT_DISEASE_BC5CDR",
+    "BIOBERT_DISEASE_NCBI",
+    "BIOBERT_GENE_BC2GM",
+    "BIOBERT_GENE_JNLPBA",
+    "BIOBERT_SPECIES_LINNAEUS",
+    "BIOBERT_SPECIES_S800",
+    "BIONLP2013_CG",
+    "BIONLP2013_PC",
+    "BIOSCOPE",
+    "BIOSEMANTICS",
+    "BIO_INFER",
+    "CDR",
+    "CELL_FINDER",
+    "CEMP",
+    "CHEMDNER",
+    "CLEANCONLL",
+    "CLL",
+    "COMMUNICATIVE_FUNCTIONS",
+    "CONLL_03",
+    "CONLL_03_DUTCH",
+    "CONLL_03_GERMAN",
+    "CONLL_03_SPANISH",
+    "CONLL_2000",
+    "CRAFT",
+    "CRAFT_V4",
+    "CTD_CHEMICALS_DICTIONARY",
+    "CTD_DISEASES_DICTIONARY",
+    "DECA",
+    "FEWNERD",
+    "FSU",
+    "GELLUS",
+    "GERMEVAL_2018_OFFENSIVE_LANGUAGE",
+    "GLUE_COLA",
+    "GLUE_MNLI",
+    "GLUE_MRPC",
+    "GLUE_QNLI",
+    "GLUE_QQP",
+    "GLUE_RTE",
+    "GLUE_SST2",
+    "GLUE_STSB",
+    "GLUE_WNLI",
+    "GO_EMOTIONS",
+    "GPRO",
+    "HUNER_CELL_LINE",
+    "HUNER_CELL_LINE_CELL_FINDER",
+    "HUNER_CELL_LINE_CLL",
+    "HUNER_CELL_LINE_GELLUS",
+    "HUNER_CELL_LINE_JNLPBA",
+    "HUNER_CHEMICAL",
+    "HUNER_CHEMICAL_CDR",
+    "HUNER_CHEMICAL_CEMP",
+    "HUNER_CHEMICAL_CHEBI",
+    "HUNER_CHEMICAL_CHEMDNER",
+    "HUNER_CHEMICAL_CRAFT_V4",
+    "HUNER_CHEMICAL_SCAI",
+    "HUNER_DISEASE",
+    "HUNER_DISEASE_CDR",
+    "HUNER_DISEASE_MIRNA",
+    "HUNER_DISEASE_NCBI",
+    "HUNER_DISEASE_PDR",
+    "HUNER_DISEASE_SCAI",
+    "HUNER_DISEASE_VARIOME",
+    "HUNER_GENE",
+    "HUNER_GENE_BC2GM",
+    "HUNER_GENE_BIO_INFER",
+    "HUNER_GENE_CELL_FINDER",
+    "HUNER_GENE_CHEBI",
+    "HUNER_GENE_CRAFT_V4",
+    "HUNER_GENE_DECA",
+    "HUNER_GENE_FSU",
+    "HUNER_GENE_GPRO",
+    "HUNER_GENE_IEPA",
+    "HUNER_GENE_JNLPBA",
+    "HUNER_GENE_LOCTEXT",
+    "HUNER_GENE_MIRNA",
+    "HUNER_GENE_OSIRIS",
+    "HUNER_GENE_VARIOME",
+    "HUNER_SPECIES",
+    "HUNER_SPECIES_CELL_FINDER",
+    "HUNER_SPECIES_CHEBI",
+    "HUNER_SPECIES_CRAFT_V4",
+    "HUNER_SPECIES_LINNEAUS",
+    "HUNER_SPECIES_LOCTEXT",
+    "HUNER_SPECIES_MIRNA",
+    "HUNER_SPECIES_S800",
+    "HUNER_SPECIES_VARIOME",
+    "IEPA",
+    "IMDB",
+    "JNLPBA",
+    "KEYPHRASE_INSPEC",
+    "KEYPHRASE_SEMEVAL2010",
+    "KEYPHRASE_SEMEVAL2017",
+    "LINNEAUS",
+    "LOCTEXT",
+    "MASAKHA_POS",
+    "MIRNA",
+    "NCBI_DISEASE",
+    "NCBI_GENE_HUMAN_DICTIONARY",
+    "NCBI_TAXONOMY_DICTIONARY",
+    "NEL_ENGLISH_AIDA",
+    "NEL_ENGLISH_AQUAINT",
+    "NEL_ENGLISH_IITB",
+    "NEL_ENGLISH_REDDIT",
+    "NEL_ENGLISH_TWEEKI",
+    "NEL_GERMAN_HIPE",
+    "NER_ARABIC_ANER",
+    "NER_ARABIC_AQMAR",
+    "NER_BASQUE",
+    "NER_BAVARIAN_WIKI",
+    "NER_CHINESE_WEIBO",
+    "NER_DANISH_DANE",
+    "NER_ENGLISH_MOVIE_COMPLEX",
+    "NER_ENGLISH_MOVIE_SIMPLE",
+    "NER_ENGLISH_PERSON",
+    "NER_ENGLISH_RESTAURANT",
+    "NER_ENGLISH_SEC_FILLINGS",
+    "NER_ENGLISH_STACKOVERFLOW",
+    "NER_ENGLISH_TWITTER",
+    "NER_ENGLISH_WEBPAGES",
+    "NER_ENGLISH_WIKIGOLD",
+    "NER_ENGLISH_WNUT_2020",
+    "NER_ESTONIAN_NOISY",
+    "NER_FINNISH",
+    "NER_GERMAN_BIOFID",
+    "NER_GERMAN_EUROPARL",
+    "NER_GERMAN_GERMEVAL",
+    "NER_GERMAN_LEGAL",
+    "NER_GERMAN_MOBIE",
+    "NER_GERMAN_POLITICS",
+    "NER_HIPE_2022",
+    "NER_HUNGARIAN",
+    "NER_ICDAR_EUROPEANA",
+    "NER_ICELANDIC",
+    "NER_JAPANESE",
+    "NER_MASAKHANE",
+    "NER_MULTI_CONER",
+    "NER_MULTI_CONER_V2",
+    "NER_MULTI_WIKIANN",
+    "NER_MULTI_WIKINER",
+    "NER_MULTI_XTREME",
+    "NER_NERMUD",
+    "NER_NOISEBENCH",
+    "NER_SWEDISH",
+    "NER_TURKU",
+    "NER_UKRAINIAN",
+    "NEWSGROUPS",
+    "ONTONOTES",
+    "OSIRIS",
+    "PDR",
+    "RE_ENGLISH_CONLL04",
+    "RE_ENGLISH_DRUGPROT",
+    "RE_ENGLISH_SEMEVAL2010",
+    "RE_ENGLISH_TACRED",
+    "S800",
+    "SCAI_CHEMICALS",
+    "SCAI_DISEASE",
+    "SENTEVAL_CR",
+    "SENTEVAL_MPQA",
+    "SENTEVAL_MR",
+    "SENTEVAL_SST_BINARY",
+    "SENTEVAL_SST_GRANULAR",
+    "SENTEVAL_SUBJ",
+    "SENTIMENT_140",
+    "SROIE",
+    "STACKOVERFLOW",
+    "SUPERGLUE_RTE",
+    "TREC_6",
+    "TREC_50",
+    "UD_AFRIKAANS",
+    "UD_ANCIENT_GREEK",
+    "UD_ARABIC",
+    "UD_ARMENIAN",
+    "UD_BASQUE",
+    "UD_BAVARIAN_MAIBAAM",
+    "UD_BELARUSIAN",
+    "UD_BULGARIAN",
+    "UD_BURYAT",
+    "UD_CATALAN",
+    "UD_CHINESE",
+    "UD_CHINESE_KYOTO",
+    "UD_COPTIC",
+    "UD_CROATIAN",
+    "UD_CZECH",
+    "UD_DANISH",
+    "UD_DUTCH",
+    "UD_ENGLISH",
+    "UD_ESTONIAN",
+    "UD_FAROESE",
+    "UD_FINNISH",
+    "UD_FRENCH",
+    "UD_GALICIAN",
+    "UD_GERMAN",
+    "UD_GERMAN_HDT",
+    "UD_GOTHIC",
+    "UD_GREEK",
+    "UD_HEBREW",
+    "UD_HINDI",
+    "UD_INDONESIAN",
+    "UD_IRISH",
+    "UD_ITALIAN",
+    "UD_JAPANESE",
+    "UD_KAZAKH",
+    "UD_KOREAN",
+    "UD_LATIN",
+    "UD_LATVIAN",
+    "UD_LITHUANIAN",
+    "UD_LIVVI",
+    "UD_MALTESE",
+    "UD_MARATHI",
+    "UD_NAIJA",
+    "UD_NORTH_SAMI",
+    "UD_NORWEGIAN",
+    "UD_OLD_CHURCH_SLAVONIC",
+    "UD_OLD_FRENCH",
+    "UD_PERSIAN",
+    "UD_POLISH",
+    "UD_PORTUGUESE",
+    "UD_ROMANIAN",
+    "UD_RUSSIAN",
+    "UD_SERBIAN",
+    "UD_SLOVAK",
+    "UD_SLOVENIAN",
+    "UD_SPANISH",
+    "UD_SWEDISH",
+    "UD_TURKISH",
+    "UD_UKRAINIAN",
+    "UD_WOLOF",
+    "UP_CHINESE",
+    "UP_ENGLISH",
+    "UP_FINNISH",
+    "UP_FRENCH",
+    "UP_GERMAN",
+    "UP_ITALIAN",
+    "UP_SPANISH",
+    "UP_SPANISH_ANCORA",
+    "VARIOME",
+    "WASSA_ANGER",
+    "WASSA_FEAR",
+    "WASSA_JOY",
+    "WASSA_SADNESS",
+    "WNUT_17",
+    "WSD_MASC",
+    "WSD_OMSTI",
+    "WSD_RAGANATO_ALL",
+    "WSD_SEMCOR",
+    "WSD_TRAINOMATIC",
+    "WSD_UFSAC",
+    "WSD_WORDNET_GLOSS_TAGGED",
+    "YAHOO_ANSWERS",
+    "ZELDA",
+    "CSVClassificationCorpus",
+    "CSVClassificationDataset",
+    "ClassificationCorpus",
+    "ClassificationDataset",
+    "ColumnCorpus",
+    "ColumnDataset",
+    "DataLoader",
+    "DataPairCorpus",
+    "DataPairDataset",
+    "DataTripleCorpus",
+    "DataTripleDataset",
+    "EntityLinkingDictionary",
+    "FeideggerCorpus",
+    "FeideggerDataset",
+    "FlairDatapointDataset",
+    "HunerEntityLinkingDictionary",
+    "MongoDataset",
+    "OcrJsonDataset",
+    "OpusParallelCorpus",
+    "ParallelTextCorpus",
+    "ParallelTextDataset",
+    "SentenceDataset",
+    "StringDataset",
+    "UniversalDependenciesCorpus",
+    "UniversalDependenciesDataset",
+]

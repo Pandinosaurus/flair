@@ -26,6 +26,7 @@ wheels/
 MANIFEST
 
 .idea/
+.vscode/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -105,7 +106,8 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-Pipfile.lock
-
 resources/taggers/
 regression_train/
+/doc_build/
+
+scripts/

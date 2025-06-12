@@ -1,23 +1,22 @@
 import logging
-import math
 
 import torch
 from torch.optim import Optimizer
+from torch.optim.lr_scheduler import LambdaLR, ReduceLROnPlateau, _LRScheduler
 from torch.optim.optimizer import required
-from torch.optim.lr_scheduler import _LRScheduler, ReduceLROnPlateau
-
 
 log = logging.getLogger("flair")
 
 
 class SGDW(Optimizer):
-    r"""Implements stochastic gradient descent (optionally with momentum) with
-    weight decay from the paper `Fixing Weight Decay Regularization in Adam`_.
+    r"""Implements stochastic gradient descent (optionally with momentum) with weight decay.
 
+    Implementation from the paper `Fixing Weight Decay Regularization in Adam`_.
     Nesterov momentum is based on the formula from
     `On the importance of initialization and momentum in deep learning`__.
 
     Args:
+    ----
         params (iterable): iterable of parameters to optimize or dicts defining
             parameter groups
         lr (float): learning rate
@@ -30,6 +29,7 @@ class SGDW(Optimizer):
         https://arxiv.org/abs/1711.05101
 
     Example:
+    -------
         >>> optimizer = torch.optim.SGDW(model.parameters(), lr=0.1, momentum=0.9,
                                          weight_decay=1e-5)
         >>> optimizer.zero_grad()
@@ -69,36 +69,41 @@ class SGDW(Optimizer):
         dampening=0,
         weight_decay=0,
         nesterov=False,
-    ):
+    ) -> None:
         if lr is not required and lr < 0.0:
-            raise ValueError("Invalid learning rate: {}".format(lr))
+            raise ValueError(f"Invalid learning rate: {lr}")
         if momentum < 0.0:
-            raise ValueError("Invalid momentum value: {}".format(momentum))
+            raise ValueError(f"Invalid momentum value: {momentum}")
         if weight_decay < 0.0:
-            raise ValueError("Invalid weight_decay value: {}".format(weight_decay))
+            raise ValueError(f"Invalid weight_decay value: {weight_decay}")
 
-        defaults = dict(
-            lr=lr,
-            momentum=momentum,
-            dampening=dampening,
-            weight_decay=weight_decay,
-            nesterov=nesterov,
-        )
+        defaults = {
+            "lr": lr,
+            "momentum": momentum,
+            "dampening": dampening,
+            "weight_decay": weight_decay,
+            "nesterov": nesterov,
+        }
         if nesterov and (momentum <= 0 or dampening != 0):
             raise ValueError("Nesterov momentum requires a momentum and zero dampening")
-        super(SGDW, self).__init__(params, defaults)
+        super().__init__(params, defaults)
 
     def __setstate__(self, state):
-        super(SGDW, self).__setstate__(state)
+        super().__setstate__(state)
         for group in self.param_groups:
             group.setdefault("nesterov", False)
 
     def step(self, closure=None):
         """Performs a single optimization step.
 
-        Arguments:
-            closure (callable, optional): A closure that reevaluates the model
-                and returns the loss.
+        Parameters
+        ----------
+        closure (callable, optional): A closure that reevaluates the model
+               and returns the loss.
+
+        Returns:
+        -------
+        loss (float, optional): The loss if closure was set
         """
         loss = None
         if closure is not None:
@@ -123,10 +128,7 @@ class SGDW(Optimizer):
                     else:
                         buf = param_state["momentum_buffer"]
                         buf.mul_(momentum).add_(1 - dampening, d_p)
-                    if nesterov:
-                        d_p = d_p.add(momentum, buf)
-                    else:
-                        d_p = buf
+                    d_p = d_p.add(momentum, buf) if nesterov else buf
 
                 if weight_decay != 0:
                     p.data.add_(-weight_decay, p.data)
@@ -136,131 +138,11 @@ class SGDW(Optimizer):
         return loss
 
 
-class AdamW(Optimizer):
-    r"""Implements AdamW optimizer.
-
-    Adam has been proposed in `Adam\: A Method for Stochastic Optimization`_.
-    AdamW uses the weight decay method from the paper
-    `Fixing Weight Decay Regularization in Adam`_.
-
-    Arguments:
-        params (iterable): iterable of parameters to optimize or dicts defining
-            parameter groups
-        lr (float, optional): learning rate (default: 1e-3)
-        betas (Tuple[float, float], optional): coefficients used for computing
-            running averages of gradient and its square (default: (0.9, 0.999))
-        eps (float, optional): term added to the denominator to improve
-            numerical stability (default: 1e-8)
-        weight_decay (float, optional): weight decay factor (default: 0)
-        amsgrad (boolean, optional): whether to use the AMSGrad variant of this
-            algorithm from the paper `On the Convergence of Adam and Beyond`_
-            (default: False)
-
-    .. _Adam\: A Method for Stochastic Optimization:
-        https://arxiv.org/abs/1412.6980
-    .. _Fixing Weight Decay Regularization in Adam:
-        https://arxiv.org/abs/1711.05101
-    .. _On the Convergence of Adam and Beyond:
-        https://openreview.net/forum?id=ryQu7f-RZ
-    """
-
-    def __init__(
-        self,
-        params,
-        lr=1e-3,
-        betas=(0.9, 0.999),
-        eps=1e-8,
-        weight_decay=0,
-        amsgrad=False,
-    ):
-        if not 0.0 <= lr:
-            raise ValueError("Invalid learning rate: {}".format(lr))
-        if not 0.0 <= eps:
-            raise ValueError("Invalid epsilon value: {}".format(eps))
-        if not 0.0 <= betas[0] < 1.0:
-            raise ValueError("Invalid beta parameter at index 0: {}".format(betas[0]))
-        if not 0.0 <= betas[1] < 1.0:
-            raise ValueError("Invalid beta parameter at index 1: {}".format(betas[1]))
-        defaults = dict(
-            lr=lr, betas=betas, eps=eps, weight_decay=weight_decay, amsgrad=amsgrad
-        )
-        super(AdamW, self).__init__(params, defaults)
-
-    def __setstate__(self, state):
-        super(AdamW, self).__setstate__(state)
-        for group in self.param_groups:
-            group.setdefault("amsgrad", False)
-
-    def step(self, closure=None):
-        """Performs a single optimization step.
-
-        Arguments:
-            closure (callable, optional): A closure that reevaluates the model
-                and returns the loss.
-        """
-        loss = None
-        if closure is not None:
-            loss = closure()
-
-        for group in self.param_groups:
-            for p in group["params"]:
-                if p.grad is None:
-                    continue
-                grad = p.grad.data
-                if grad.is_sparse:
-                    raise RuntimeError(
-                        "Adam does not support sparse gradients, please consider SparseAdam instead"
-                    )
-                amsgrad = group["amsgrad"]
-
-                state = self.state[p]
-
-                # State initialization
-                if len(state) == 0:
-                    state["step"] = 0
-                    # Exponential moving average of gradient values
-                    state["exp_avg"] = torch.zeros_like(p.data)
-                    # Exponential moving average of squared gradient values
-                    state["exp_avg_sq"] = torch.zeros_like(p.data)
-                    if amsgrad:
-                        # Maintains max of all exp. moving avg. of sq. grad. values
-                        state["max_exp_avg_sq"] = torch.zeros_like(p.data)
-
-                exp_avg, exp_avg_sq = state["exp_avg"], state["exp_avg_sq"]
-                if amsgrad:
-                    max_exp_avg_sq = state["max_exp_avg_sq"]
-                beta1, beta2 = group["betas"]
-
-                state["step"] += 1
-
-                # Decay the first and second moment running average coefficient
-                exp_avg.mul_(beta1).add_(1 - beta1, grad)
-                exp_avg_sq.mul_(beta2).addcmul_(1 - beta2, grad, grad)
-                if amsgrad:
-                    # Maintains the maximum of all 2nd moment running avg. till now
-                    torch.max(max_exp_avg_sq, exp_avg_sq, out=max_exp_avg_sq)
-                    # Use the max. for normalizing running avg. of gradient
-                    denom = max_exp_avg_sq.sqrt().add_(group["eps"])
-                else:
-                    denom = exp_avg_sq.sqrt().add_(group["eps"])
-
-                bias_correction1 = 1 - beta1 ** state["step"]
-                bias_correction2 = 1 - beta2 ** state["step"]
-                step_size = group["lr"] * math.sqrt(bias_correction2) / bias_correction1
-
-                if group["weight_decay"] != 0:
-                    p.data.add_(-group["weight_decay"], p.data)
-
-                p.data.addcdiv_(-step_size, exp_avg, denom)
-
-        return loss
-
-
 class ExpAnnealLR(_LRScheduler):
-    """Exponentially anneal the learning rate of each parameter group
-    from the initial lr to end_lr over a number of iterations.
+    """Exponentially anneal the lr of each parameter group from the initial lr to end_lr over a number of iterations.
 
     Args:
+    ----
         optimizer (Optimizer): Wrapped optimizer.
         end_lr (float): The final learning rate.
         iterations (int): The number of iterations over which to increase the
@@ -268,10 +150,10 @@ class ExpAnnealLR(_LRScheduler):
         last_epoch (int): The index of the last iteration. Default: -1.
     """
 
-    def __init__(self, optimizer, end_lr, iterations, last_epoch=-1):
+    def __init__(self, optimizer, end_lr, iterations, last_epoch=-1) -> None:
         self.end_lr = end_lr
         self.iterations = iterations
-        super(ExpAnnealLR, self).__init__(optimizer, last_epoch=last_epoch)
+        super().__init__(optimizer, last_epoch=last_epoch)
 
     def get_lr(self):
         iteration = self.last_epoch + 1
@@ -279,9 +161,38 @@ class ExpAnnealLR(_LRScheduler):
         return [base_lr * (self.end_lr / base_lr) ** pct for base_lr in self.base_lrs]
 
 
+class LinearSchedulerWithWarmup(LambdaLR):
+    """Linearly increase the lr from 0 to initial lr during warmup and decrease the lr to 0 after the warmup.
+
+    Uses LambaLR scheduler where the learning rate is multiplied by a lambda factor after calling scheduler.step().
+
+    Args:
+    ----
+        optimizer (Optimizer): Wrapped optimizer.
+        num_train_steps (int): total number of training steps (number of batches * epochs).
+        num_warmup_steps (int): number of training steps for learning rate warmup.
+        last_epoch (int): The index of the last iteration. Default: -1. The scheduler
+            will simply restart when resuming training from a checkpoint.
+    """
+
+    def __init__(self, optimizer, num_train_steps, num_warmup_steps, last_epoch=-1) -> None:
+        def linear_lr_lambda(current_step: int):
+            lambda_during_warmup = float(current_step) / float(max(1, num_warmup_steps))
+            lambda_after_warmup = max(
+                0.0,
+                float(num_train_steps - current_step) / float(max(1, num_train_steps - num_warmup_steps)),
+            )
+            if current_step < num_warmup_steps:
+                return lambda_during_warmup
+            return lambda_after_warmup
+
+        super().__init__(optimizer, lr_lambda=linear_lr_lambda, last_epoch=last_epoch)
+
+
 class ReduceLRWDOnPlateau(ReduceLROnPlateau):
-    """Reduce learning rate and weight decay when a metric has stopped
-    improving. Models often benefit from reducing the learning rate by
+    """Reduce learning rate and weight decay when a metric has stopped improving.
+
+    Models often benefit from reducing the learning rate by
     a factor of 2-10 once learning stagnates. This scheduler reads a metric
     quantity and if no improvement is seen for a 'patience' number
     of epochs, the learning rate and weight decay factor is reduced for
@@ -292,6 +203,7 @@ class ReduceLRWDOnPlateau(ReduceLROnPlateau):
         https://arxiv.org/abs/1711.05101
 
     Args:
+    ----
         optimizer (Optimizer): Wrapped optimizer.
         mode (str): One of `min`, `max`. In `min` mode, lr will
             be reduced when the quantity monitored has stopped
@@ -305,8 +217,6 @@ class ReduceLRWDOnPlateau(ReduceLROnPlateau):
             with no improvement, and will only decrease the LR after the
             3rd epoch if the loss still hasn't improved then.
             Default: 10.
-        verbose (bool): If ``True``, prints a message to stdout for
-            each update. Default: ``False``.
         threshold (float): Threshold for measuring the new optimum,
             to only focus on significant changes. Default: 1e-4.
         threshold_mode (str): One of `rel`, `abs`. In `rel` mode,
@@ -324,6 +234,7 @@ class ReduceLRWDOnPlateau(ReduceLROnPlateau):
             ignored. Default: 1e-8.
 
     Example:
+    -------
         >>> optimizer = AdamW(model.parameters(), lr=0.1, weight_decay=1e-3)
         >>> scheduler = ReduceLRWDOnPlateau(optimizer, 'min')
         >>> for epoch in range(10):
@@ -363,6 +274,4 @@ class ReduceLRWDOnPlateau(ReduceLROnPlateau):
                 if old_weight_decay - new_weight_decay > self.eps:
                     param_group["weight_decay"] = new_weight_decay
                     if self.verbose:
-                        log.info(
-                            f"Epoch {epoch}: reducing weight decay factor of group {i} to {new_weight_decay:.4e}."
-                        )
+                        log.info(f"Epoch {epoch}: reducing weight decay factor of group {i} to {new_weight_decay:.4e}.")

@@ -42,7 +42,8 @@ Currently, the following contextual string embeddings are provided (note: replac
 | 'de-historic-wz-X'  | German (historical) | Added by [@stefan-it](https://github.com/stefan-it/flair-lms): Historical German trained over *Wiener Zeitung* |
 | 'de-historic-rw-X'  | German (historical) | Added by [@redewiedergabe](https://github.com/redewiedergabe): Historical German trained over 100 million tokens |
 | 'es-X'    | Spanish | Added by [@iamyihwa](https://github.com/zalandoresearch/flair/issues/80): Trained with Wikipedia |
-| 'es-X-fast'    | Spanish | Added by [@iamyihwa](https://github.com/zalandoresearch/flair/issues/80): Trained with Wikipediam CPU-friendly |
+| 'es-X-fast'    | Spanish | Added by [@iamyihwa](https://github.com/zalandoresearch/flair/issues/80): Trained with Wikipedia, CPU-friendly |
+| 'es-clinical-'    | Spanish (clinical) | Added by [@matirojasg](https://github.com/flairNLP/flair/issues/2292): Trained with Wikipedia |
 | 'eu-X'    | Basque | Added by [@stefan-it](https://github.com/zalandoresearch/flair/issues/614): Trained with Wikipedia/OPUS |
 | 'eu-v0-X'    | Basque | Added by [@stefan-it](https://github.com/stefan-it/flair-lms): LM embeddings (earlier version) |
 | 'fa-X'     | Persian | Added by [@stefan-it](https://github.com/zalandoresearch/flair/issues/614): Trained with Wikipedia/OPUS |
@@ -69,6 +70,8 @@ Currently, the following contextual string embeddings are provided (note: replac
 | 'de-impresso-hipe-v1-X' | German (historical)  | In-domain data (Swiss and Luxembourgish newspapers) for [CLEF HIPE Shared task](https://impresso.github.io/CLEF-HIPE-2020). More information on the shared task can be found in [this paper](https://zenodo.org/record/3752679#.XqgzxXUzZzU) |
 | 'en-impresso-hipe-v1-X' | English (historical) | In-domain data (Chronicling America material) for [CLEF HIPE Shared task](https://impresso.github.io/CLEF-HIPE-2020). More information on the shared task can be found in [this paper](https://zenodo.org/record/3752679#.XqgzxXUzZzU) |
 | 'fr-impresso-hipe-v1-X' | French (historical)  | In-domain data (Swiss and Luxembourgish newspapers) for [CLEF HIPE Shared task](https://impresso.github.io/CLEF-HIPE-2020). More information on the shared task can be found in [this paper](https://zenodo.org/record/3752679#.XqgzxXUzZzU) |
+| 'am-X' | Amharic  | Based on 6.5m Amharic text corpus crawled from different sources. See [this paper](https://www.mdpi.com/1999-5903/13/11/275) and the official [GitHub Repository](https://github.com/uhh-lt/amharicmodels) for more information. |
+| 'uk-X' | Ukrainian | Added by [@dchaplinsky](https://github.com/dchaplinsky): Trained with [UberText](https://lang.org.ua/en/corpora/) corpus. |
 
 So, if you want to load embeddings from the German forward LM model, instantiate the method as follows:
 
@@ -116,11 +119,11 @@ Words are now embedded using a concatenation of three different embeddings. This
 
 ## Pooled Flair Embeddings
 
-We also developed a pooled variant of the `FlairEmbeddings`. These embeddings differ in that they *constantly evolve over time*, even at prediction time (i.e. after training is complete). This means that the same words in the same sentence at two different points in time may have different embeddings. 
+We also developed a pooled variant of the `FlairEmbeddings`. These embeddings differ in that they *constantly evolve over time*, even at prediction time (i.e. after training is complete). This means that the same words in the same sentence at two different points in time may have different embeddings.
 
-`PooledFlairEmbeddings` manage a 'global' representation of each distinct word by using a pooling operation of all past occurences. More details on how this works may be found in [Akbik et al. (2019)](https://www.aclweb.org/anthology/N19-1078/). 
+`PooledFlairEmbeddings` manage a 'global' representation of each distinct word by using a pooling operation of all past occurences. More details on how this works may be found in [Akbik et al. (2019)](https://www.aclweb.org/anthology/N19-1078/).
 
-You can instantiate and use `PooledFlairEmbeddings` like any other embedding: 
+You can instantiate and use `PooledFlairEmbeddings` like any other embedding:
 
 ```python
 from flair.embeddings import PooledFlairEmbeddings
@@ -136,3 +139,9 @@ flair_embedding_forward.embed(sentence)
 ```
 
 Note that while we get some of our best results with `PooledFlairEmbeddings` they are very ineffective memory-wise since they keep past embeddings of all words in memory. In many cases, regular `FlairEmbeddings` will be nearly as good but with much lower memory requirements.
+
+
+## Next
+
+Now that you are familiar with Flair embeddings, check 
+out the [**`TransformerEmbeddings`**](/resources/docs/embeddings/TRANSFORMER_EMBEDDINGS.md) next!
